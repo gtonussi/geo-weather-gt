@@ -17,7 +17,7 @@ A modern, mobile-first weather app built with Next.js and Tailwind CSS. This app
 
 1. **Clone the repository:**
    ```sh
-   git clone <your-repo-url>
+   git clone https://github.com/gtonussi/geo-weather-gt.git
    cd geo-weather-gt
    ```
 2. **Install dependencies:**
