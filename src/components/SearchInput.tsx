@@ -86,7 +86,7 @@ export const SearchInput: FC<SearchInputProps> = ({
         <button
           type="button"
           onClick={handleExampleClick}
-          className="underline hover:text-blue-500 focus:outline-none transition-colors cursor-pointer p-0 bg-transparent border-none opacity-70 inline"
+          className="underline hover:text-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 focus:text-blue-600 transition-colors cursor-pointer p-1 bg-transparent border-none opacity-70 inline rounded-sm"
           tabIndex={0}
           aria-label={`Use example address: ${EXAMPLE_ADDRESS}`}
         >
