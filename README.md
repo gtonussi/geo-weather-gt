@@ -131,6 +131,9 @@ Enjoy using and building on Geo Weather GT!
 - **User-Agent Header for API Requests**
   - The app sets a custom `User-Agent` header (`Geo-Weather (geo-weather-gt@gmail.com)`) when making requests to the weather.gov API. This is required by the API provider for identification and responsible usage, and helps ensure requests are not blocked or rate-limited
 
+- **Semantic Console Logging:**
+  - All API calls and service operations are tracked with semantic, emoji-coded console logs that make debugging and monitoring much easier. Each service (geocoding, weather, API routes) uses distinct prefixes and structured logging to trace request flows, response data, and error handling in real-time during development.
+
 - **Accessibility:**
   - The application is built to high accessibility standards, using semantic HTML, correct ARIA attributes, and color contrast that meets WCAG guidelines. All interactive elements are keyboard accessible and screen reader friendly.
 
