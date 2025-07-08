@@ -20,6 +20,7 @@ The test suite includes tests for all major components, services, and API routes
 ## Test Coverage
 
 Current coverage statistics:
+
 - **Components**: 100% coverage (SearchInput, WeatherCard)
 - **Services**: 100% coverage (geocodingService, weatherService)
 - **API Routes**: Logic testing (business logic validation without Next.js specifics)
@@ -28,6 +29,7 @@ Current coverage statistics:
 ## Key Features Tested
 
 ### SearchInput Component
+
 - ✅ Form rendering and accessibility
 - ✅ Input value management and validation
 - ✅ Search functionality with trimming
@@ -38,6 +40,7 @@ Current coverage statistics:
 - ✅ Accessibility attributes
 
 ### WeatherCard Component
+
 - ✅ Weather data display
 - ✅ Expand/collapse functionality
 - ✅ Short vs detailed forecast toggling
@@ -48,6 +51,7 @@ Current coverage statistics:
 - ✅ Proper ARIA attributes
 
 ### Geocoding Service
+
 - ✅ Address validation and encoding
 - ✅ API request formatting
 - ✅ Response parsing and error handling
@@ -56,6 +60,7 @@ Current coverage statistics:
 - ✅ Special character handling in addresses
 
 ### Weather Service
+
 - ✅ Coordinate validation
 - ✅ API request chaining (points → forecast)
 - ✅ Response data limiting (14 periods max)
@@ -64,6 +69,7 @@ Current coverage statistics:
 - ✅ Network failure handling
 
 ### API Route Logic
+
 - ✅ Input parameter validation
 - ✅ External API integration testing
 - ✅ Error response formatting
@@ -73,16 +79,19 @@ Current coverage statistics:
 ## Running Tests
 
 ### Basic Test Run
+
 ```bash
 npm test
 ```
 
 ### Watch Mode (for development)
+
 ```bash
 npm run test:watch
 ```
 
 ### Coverage Report
+
 ```bash
 npm run test:coverage
 ```
@@ -90,12 +99,14 @@ npm run test:coverage
 ## Test Configuration
 
 The test suite uses:
+
 - **Jest** - Testing framework
 - **React Testing Library** - Component testing utilities
 - **Jest DOM** - Additional DOM matchers
 - **User Event** - User interaction simulation
 
 ### Key Configuration Files
+
 - `jest.config.js` - Jest configuration
 - `jest.setup.js` - Global test setup and mocks
 - `package.json` - Test scripts
@@ -103,11 +114,13 @@ The test suite uses:
 ## Mocking Strategy
 
 ### Global Mocks
+
 - **fetch** - Mocked globally for API testing
 - **Next.js Image** - Mocked for component testing
 - **Console methods** - Suppressed for cleaner test output
 
 ### Component-Specific Mocks
+
 - User interactions simulated with `@testing-library/user-event`
 - External API responses mocked with realistic data
 - Error scenarios thoroughly tested
@@ -124,6 +137,7 @@ The test suite uses:
 ## Future Enhancements
 
 Potential areas for test expansion:
+
 - Integration tests combining multiple components
 - E2E testing with tools like Playwright or Cypress
 - Performance testing for large datasets
@@ -132,11 +146,13 @@ Potential areas for test expansion:
 ## Troubleshooting
 
 ### Common Issues
+
 1. **Module Resolution** - Ensure `@/` alias is properly configured
 2. **Async Operations** - Use `await` with user interactions
 3. **Mock Cleanup** - Verify mocks are cleared between tests
 
 ### Debug Commands
+
 ```bash
 # Run specific test file
 npm test SearchInput.test.tsx
@@ -151,6 +167,7 @@ npm test -- --watch --testNamePattern="SearchInput"
 ## Contributing
 
 When adding new features:
+
 1. Write tests for new components/services
 2. Ensure tests cover error scenarios
 3. Maintain accessibility test coverage
