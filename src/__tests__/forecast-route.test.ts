@@ -118,7 +118,7 @@ describe("Forecast API Logic", () => {
       };
     } catch (error) {
       return {
-        error: "Internal server error",
+        error: "Internal server error: " + error,
         status: 500,
       };
     }
