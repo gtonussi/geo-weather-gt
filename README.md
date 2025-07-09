@@ -131,6 +131,9 @@ Enjoy using and building on Geo Weather GT!
 - **User-Agent Header for API Requests**
   - The app sets a custom `User-Agent` header (`Geo-Weather (geo-weather-gt@gmail.com)`) when making requests to the weather.gov API. This is required by the API provider for identification and responsible usage, and helps ensure requests are not blocked or rate-limited
 
+- **Geolocation "Find Me" Button:**
+  - The app includes a "Find Me" button that uses the browser's geolocation API to get the user's current location. When clicked, it populates the search input with full-precision coordinates (e.g., `40.712775826286046, -74.00597095489502`). **Note:** This feature only works for US coordinates since the weather API is limited to US locations. For international users, the coordinates will be pasted but the weather lookup will fail.
+
 - **Semantic Console Logging:**
   - All API calls and service operations are tracked with semantic, emoji-coded console logs that make debugging and monitoring much easier. Each service (geocoding, weather, API routes) uses distinct prefixes and structured logging to trace request flows, response data, and error handling in real-time during development.
 
@@ -143,11 +146,36 @@ Enjoy using and building on Geo Weather GT!
 - **Mobile-First & Responsive:**
   - The design is mobile-first, ensuring a great experience on all devices. Layouts and components adapt responsively from small to large screens.
 
-- **Componentization & Maintainability:**
-  - The codebase is organized into small, reusable components, making it easy to maintain and extend. TypeScript is used throughout for type safety and developer confidence.
+---
 
-- **Developer Experience:**
-  - Uses Tailwind CSS for rapid, consistent styling and Next.js for fast development and deployment. Example data and clear documentation are provided for onboarding and testing.
+## 🧪 Testing & Development
+
+### Mocking US Coordinates for "Find Me" Button
+
+Since the weather API only works with US coordinates, developers and international users can mock the browser's geolocation API to simulate being in the US for testing purposes:
+
+1. **Open your browser's Developer Tools** (F12)
+2. **Go to the Console tab**
+3. **Paste the following mock script:**
+
+```javascript
+// New York City coordinates
+navigator.geolocation.getCurrentPosition = function (success, error) {
+  success({
+    coords: {
+      latitude: 40.712775826286046,
+      longitude: -74.00597095489502,
+      accuracy: 50,
+    },
+  });
+};
+```
+
+4. **Press Enter** to execute the mock
+5. **Click the "Find me" button** in the app
+6. The input will be populated with the mocked US coordinates and weather lookup will work
+
+This is useful for testing the geolocation functionality, demonstrating the app to international users, and development when outside the US.
 
 ---
 
