@@ -85,11 +85,13 @@ geo-weather-gt/
 - Click or press Enter/Space to expand/collapse for detailed forecast.
 - Uses smooth transitions and a floating expand/collapse icon.
 
-### `src/components/SearchInput.tsx`
+### `src/components/AddressForm.tsx`
 
 - Accessible search input for location queries.
 - Example address button for quick demo.
 - Responsive: input and buttons stack on mobile, row on desktop.
+- Contains the "Find Me" button that uses browser geolocation to get user coordinates.
+- Populates the search input with full-precision coordinates when location is found.
 
 ### `src/services/`
 
