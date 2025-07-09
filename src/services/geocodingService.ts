@@ -1,11 +1,8 @@
-// Helper function to detect if input is coordinates
 const isCoordinateString = (input: string): boolean => {
-  // Match patterns like: "40.7128, -74.0060" or "40.7128,-74.0060" or "40.7128 -74.0060"
   const coordinatePattern = /^-?\d+\.?\d*[,\s]+-?\d+\.?\d*$/;
   return coordinatePattern.test(input.trim());
 };
 
-// Helper function to parse coordinate string
 const parseCoordinates = (
   input: string
 ): { lat: number; lon: number } | null => {
@@ -18,7 +15,6 @@ const parseCoordinates = (
     const lat = parseFloat(parts[0]);
     const lon = parseFloat(parts[1]);
 
-    // Basic validation: lat should be -90 to 90, lon should be -180 to 180
     if (
       isNaN(lat) ||
       isNaN(lon) ||
@@ -73,13 +69,11 @@ export const getCoordinatesFromAddress = async (
   }
 };
 
-// Smart function that handles both addresses and coordinates
 export const getCoordinatesFromAddressOrCoordinates = async (
   input: string
 ): Promise<{ lat: number; lon: number }> => {
   console.log("🗺️ [GEOCODING SERVICE] Processing input:", input);
 
-  // Check if input looks like coordinates
   if (isCoordinateString(input)) {
     console.log("🗺️ [GEOCODING SERVICE] Input detected as coordinates");
     const coords = parseCoordinates(input);
@@ -90,7 +84,6 @@ export const getCoordinatesFromAddressOrCoordinates = async (
     }
   }
 
-  // If not coordinates or parsing failed, treat as address
   console.log("🗺️ [GEOCODING SERVICE] Processing as address");
   return getCoordinatesFromAddress(input);
 };

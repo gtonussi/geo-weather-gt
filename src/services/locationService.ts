@@ -2,11 +2,6 @@ export const getUserCoordinates = (): Promise<{ lat: number; lon: number }> =>
   new Promise((resolve, reject) => {
     console.log("📍 [LOCATION SERVICE] Requesting user geolocation");
 
-    // 🧪 TESTING: Uncomment to simulate US coordinates
-    // const testCoordinates = { lat: 40.7128, lon: -74.0060 }; // New York City
-    // console.log("🧪 [LOCATION SERVICE] Using test coordinates:", testCoordinates);
-    // return resolve(testCoordinates);
-
     if (!navigator.geolocation) {
       console.log("❌ [LOCATION SERVICE] Geolocation not supported by browser");
       return reject("Geolocation not supported");
@@ -31,7 +26,7 @@ export const getUserCoordinates = (): Promise<{ lat: number; lon: number }> =>
       {
         enableHighAccuracy: true,
         timeout: 10000,
-        maximumAge: 300000, // 5 minutes
+        maximumAge: 300000,
       }
     );
   });

@@ -32,7 +32,6 @@ export const AddressForm: FC<AddressFormProps> = ({
 
     try {
       const coords = await getUserCoordinates();
-      // Paste full precision coordinates directly into the input
       setAddress(`${coords.lat}, ${coords.lon}`);
     } catch (err) {
       alert("It wasn't possible to get your Geolocation.");
