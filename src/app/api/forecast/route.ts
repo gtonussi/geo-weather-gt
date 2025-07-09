@@ -6,10 +6,7 @@ export async function GET(req: NextRequest) {
   const lat = searchParams.get("lat");
   const lon = searchParams.get("lon");
 
-  console.log("🌤️ [FORECAST API] Query parameters:", { lat, lon });
-
   if (!lat || !lon) {
-    console.log("❌ [FORECAST API] Missing required parameters:", { lat, lon });
     return NextResponse.json(
       { error: "Latitude and longitude are required" },
       { status: 400 }
@@ -17,25 +14,15 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    console.log("🌤️ [FORECAST API] Starting forecast fetch process");
     const headers = {
       "User-Agent": "Geo-Weather (geo-weather-gt@gmail.com)",
     };
 
     const pointsUrl = `https://api.weather.gov/points/${lat},${lon}`;
-    console.log("🌤️ [FORECAST API] Fetching points data from:", pointsUrl);
-
-    const pointsRes = await fetch(pointsUrl, {
-      headers,
-    });
-
-    console.log("🌤️ [FORECAST API] Points response status:", pointsRes.status);
+    const pointsRes = await fetch(pointsUrl, { headers });
 
     if (!pointsRes.ok) {
-      console.log("❌ [FORECAST API] Points request failed:", {
-        status: pointsRes.status,
-        statusText: pointsRes.statusText,
-      });
+      console.log("❌ [FORECAST API] Points request failed:", pointsRes.status);
       return NextResponse.json(
         { error: "Failed to fetch forecast URL" },
         { status: pointsRes.status }
@@ -43,36 +30,23 @@ export async function GET(req: NextRequest) {
     }
 
     const pointData = await pointsRes.json();
-    console.log("🌤️ [FORECAST API] Points data received:", {
-      properties: pointData.properties ? "Present" : "Missing",
-      forecastUrl: pointData.properties?.forecast,
-    });
-
     const forecastUrl = pointData.properties?.forecast;
 
     if (!forecastUrl) {
-      console.log("❌ [FORECAST API] Forecast URL not found in points data");
+      console.log("❌ [FORECAST API] Forecast URL not found");
       return NextResponse.json(
         { error: "Forecast URL not found" },
         { status: 500 }
       );
     }
 
-    console.log("🌤️ [FORECAST API] Fetching forecast from:", forecastUrl);
-    const forecastRes = await fetch(forecastUrl, {
-      headers,
-    });
-
-    console.log(
-      "🌤️ [FORECAST API] Forecast response status:",
-      forecastRes.status
-    );
+    const forecastRes = await fetch(forecastUrl, { headers });
 
     if (!forecastRes.ok) {
-      console.log("❌ [FORECAST API] Forecast request failed:", {
-        status: forecastRes.status,
-        statusText: forecastRes.statusText,
-      });
+      console.log(
+        "❌ [FORECAST API] Forecast request failed:",
+        forecastRes.status
+      );
       return NextResponse.json(
         { error: "Failed to fetch forecast data" },
         { status: forecastRes.status }
@@ -82,18 +56,17 @@ export async function GET(req: NextRequest) {
     const forecastData = await forecastRes.json();
     const periods = forecastData.properties?.periods ?? [];
 
-    console.log("✅ [FORECAST API] Forecast data processed successfully:", {
-      periodsCount: periods.length,
-      hasProperties: !!forecastData.properties,
-    });
-
+    console.log(
+      "✅ [FORECAST API] Forecast loaded:",
+      periods.length,
+      "periods"
+    );
     return NextResponse.json({ periods });
   } catch (error) {
-    console.error("❌ [FORECAST API] Unexpected error:", {
-      message: error instanceof Error ? error.message : "Unknown error",
-      stack: error instanceof Error ? error.stack : undefined,
-      error,
-    });
+    console.error(
+      "❌ [FORECAST API] Error:",
+      error instanceof Error ? error.message : "Unknown error"
+    );
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

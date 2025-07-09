@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { SearchInput } from "@/components/SearchInput";
+import { AddressForm } from "@/components/AddressForm";
 import { EXAMPLE_ADDRESS } from "@/const/example";
 
-describe("SearchInput", () => {
+describe("AddressForm", () => {
   const mockOnSearch = jest.fn();
 
   beforeEach(() => {
@@ -11,7 +11,7 @@ describe("SearchInput", () => {
   });
 
   it("renders search form with input and buttons", () => {
-    render(<SearchInput onSearch={mockOnSearch} />);
+    render(<AddressForm onSearch={mockOnSearch} />);
 
     expect(screen.getByLabelText("Location search input")).toBeInTheDocument();
     expect(
@@ -24,14 +24,14 @@ describe("SearchInput", () => {
   });
 
   it("focuses input on mount when startFocused is true", () => {
-    render(<SearchInput onSearch={mockOnSearch} startFocused={true} />);
+    render(<AddressForm onSearch={mockOnSearch} startFocused={true} />);
 
     const input = screen.getByLabelText("Location search input");
     expect(input).toHaveFocus();
   });
 
   it("does not focus input on mount when startFocused is false", () => {
-    render(<SearchInput onSearch={mockOnSearch} startFocused={false} />);
+    render(<AddressForm onSearch={mockOnSearch} startFocused={false} />);
 
     const input = screen.getByLabelText("Location search input");
     expect(input).not.toHaveFocus();
@@ -39,7 +39,7 @@ describe("SearchInput", () => {
 
   it("updates input value when typing", async () => {
     const user = userEvent.setup();
-    render(<SearchInput onSearch={mockOnSearch} />);
+    render(<AddressForm onSearch={mockOnSearch} />);
 
     const input = screen.getByLabelText("Location search input");
     await user.type(input, "New York");
@@ -49,7 +49,7 @@ describe("SearchInput", () => {
 
   it("calls onSearch with trimmed query when form is submitted", async () => {
     const user = userEvent.setup();
-    render(<SearchInput onSearch={mockOnSearch} />);
+    render(<AddressForm onSearch={mockOnSearch} />);
 
     const input = screen.getByLabelText("Location search input");
     const submitButton = screen.getByRole("button", {
@@ -65,7 +65,7 @@ describe("SearchInput", () => {
 
   it("does not call onSearch when query is empty or only whitespace", async () => {
     const user = userEvent.setup();
-    render(<SearchInput onSearch={mockOnSearch} />);
+    render(<AddressForm onSearch={mockOnSearch} />);
 
     const submitButton = screen.getByRole("button", {
       name: "Search for location",
@@ -84,7 +84,7 @@ describe("SearchInput", () => {
 
   it("clears input when clear button is clicked", async () => {
     const user = userEvent.setup();
-    render(<SearchInput onSearch={mockOnSearch} />);
+    render(<AddressForm onSearch={mockOnSearch} />);
 
     const input = screen.getByLabelText("Location search input");
     const clearButton = screen.getByRole("button", {
@@ -100,7 +100,7 @@ describe("SearchInput", () => {
 
   it("sets example address when example button is clicked", async () => {
     const user = userEvent.setup();
-    render(<SearchInput onSearch={mockOnSearch} />);
+    render(<AddressForm onSearch={mockOnSearch} />);
 
     const input = screen.getByLabelText("Location search input");
     const exampleButton = screen.getByRole("button", {
@@ -115,7 +115,7 @@ describe("SearchInput", () => {
 
   it("submits form when Enter key is pressed", async () => {
     const user = userEvent.setup();
-    render(<SearchInput onSearch={mockOnSearch} />);
+    render(<AddressForm onSearch={mockOnSearch} />);
 
     const input = screen.getByLabelText("Location search input");
 
@@ -127,7 +127,7 @@ describe("SearchInput", () => {
   });
 
   it("has proper accessibility attributes", () => {
-    render(<SearchInput onSearch={mockOnSearch} />);
+    render(<AddressForm onSearch={mockOnSearch} />);
 
     const form = screen.getByRole("search");
     expect(form).toHaveAttribute("aria-label", "Location search form");

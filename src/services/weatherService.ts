@@ -10,37 +10,29 @@ export const getWeekForecast = async (
   });
 
   const url = `/api/forecast?lat=${lat}&lon=${lon}`;
-  console.log("🌦️ [WEATHER SERVICE] Making request to:", url);
 
   try {
     const res = await fetch(url);
-    console.log("🌦️ [WEATHER SERVICE] Response status:", res.status);
-
     const data = await res.json();
-    console.log("🌦️ [WEATHER SERVICE] Response data:", data);
 
     if (!res.ok) {
-      console.log("❌ [WEATHER SERVICE] Request failed:", {
-        status: res.status,
-        error: data.error,
-        data,
-      });
+      console.log("❌ [WEATHER SERVICE] Request failed:", data.error);
       throw new Error(data.error || "Failed to load forecast");
     }
 
     const periods = data.periods?.slice(0, 14) || [];
-    console.log("✅ [WEATHER SERVICE] Forecast periods processed:", {
-      totalPeriods: data.periods?.length || 0,
-      returnedPeriods: periods.length,
-    });
+    console.log(
+      "✅ [WEATHER SERVICE] Forecast loaded:",
+      periods.length,
+      "periods"
+    );
 
     return periods;
   } catch (error) {
-    console.error("❌ [WEATHER SERVICE] Error:", {
-      message: error instanceof Error ? error.message : "Unknown error",
-      stack: error instanceof Error ? error.stack : undefined,
-      error,
-    });
+    console.error(
+      "❌ [WEATHER SERVICE] Error:",
+      error instanceof Error ? error.message : "Unknown error"
+    );
     throw error;
   }
 };

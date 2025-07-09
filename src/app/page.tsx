@@ -1,8 +1,8 @@
 "use client";
 
-import { SearchInput } from "@/components/SearchInput";
+import { AddressForm } from "@/components/AddressForm";
 import { WeatherCard } from "@/components/WeatherCard";
-import { getCoordinatesFromAddress } from "@/services/geocodingService";
+import { getCoordinatesFromAddressOrCoordinates } from "@/services/geocodingService";
 import { getWeekForecast } from "@/services/weatherService";
 import { ForecastPeriod } from "@/types/forecast";
 
@@ -15,7 +15,7 @@ export default function Home() {
   const handleSearch = async (address: string) => {
     try {
       setLoading(true);
-      const coords = await getCoordinatesFromAddress(address);
+      const coords = await getCoordinatesFromAddressOrCoordinates(address);
       const forecastData = await getWeekForecast(coords.lat, coords.lon);
       setForecast(forecastData);
     } catch (err) {
@@ -35,7 +35,7 @@ export default function Home() {
         >
           Geo Weather
         </h1>
-        <SearchInput onSearch={handleSearch} />
+        <AddressForm onSearch={handleSearch} />
         {loading ? (
           <p
             className="text-center text-blue-600 dark:text-blue-200 py-8"
