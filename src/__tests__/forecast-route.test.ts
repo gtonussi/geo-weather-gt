@@ -116,9 +116,10 @@ describe("Forecast API Logic", () => {
         data: { periods },
         status: 200,
       };
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       return {
-        error: "Internal server error: " + error,
+        error: "Internal server error",
         status: 500,
       };
     }
